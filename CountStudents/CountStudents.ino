@@ -43,6 +43,7 @@ void setup() {
 }
 
 void loop() {
+
   delay(500);
 
   digitalWrite(trigpin1, HIGH);
@@ -60,7 +61,9 @@ void loop() {
   Serial.print("cm-1 ");
   Serial.println();
 
-  if (count >= 0)
+
+
+  if (count < 3) {//10 is the maximunm student count
 
     if (cm1 <= 50) {
       Serial.println("Sensor Detect the person in Front");
@@ -80,6 +83,9 @@ void loop() {
       delay(2000);
 
     }
+  }
+
+
 
   delay(500);
 
@@ -97,8 +103,9 @@ void loop() {
   Serial.print(cm2);
   Serial.print("cm-2 ");
   Serial.println();
-  
-//Studentsla akkenk ho ita wada pool ake innawanm witari meka weda karanne
+
+
+  //Studentsla akkenk ho ita wada pool ake innawanm witari meka weda karanne
   if (count > 0) {
     if (cm2 <= 50) {
       Serial.println("Sensor Detect the person in Back");
@@ -121,6 +128,11 @@ void loop() {
 
 
     }
+  }
+
+  if (count >= 3) {
+    Serial.print("Students full In this Time ");
+    Serial.println();
   }
 
 
