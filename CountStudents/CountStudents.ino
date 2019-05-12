@@ -5,6 +5,7 @@ int echopin1 = 12;
 int trigpin2 = 10;
 int echopin2 = 8;
 long duration1, cm1 , duration2, cm2;
+int freeslots, maxslots = 3;
 
 Servo servo1, servo2;
 
@@ -63,7 +64,7 @@ void loop() {
 
 
 
-  if (count < 3) {//10 is the maximunm student count
+  if (count < maxslots) {
 
     if (cm1 <= 50) {
       Serial.println("Sensor Detect the person in Front");
@@ -77,6 +78,12 @@ void loop() {
         Serial.print(count);
         Serial.print("Students In this Time ");
         Serial.println();
+
+        freeslots = maxslots - count;
+        Serial.print(freeslots);
+        Serial.print(" Students can Enterd the Swimming Pool this Time ");
+        Serial.println();
+
       }
 
       servo1.write(0);
@@ -119,21 +126,40 @@ void loop() {
         Serial.print(count);
         Serial.print("Students In this Time ");
         Serial.println();
+
+        freeslots = maxslots - count;
+        Serial.print(freeslots);
+        Serial.print(" Students can Enterd the Swimming Pool this Time ");
+        Serial.println();
+
+
+
       }
 
       servo2.write(0);
       delay(2000);
 
 
-
-
     }
-  }
 
-  if (count >= 3) {
-    Serial.print("Students full In this Time ");
+
+  }
+  if (count >= maxslots) {
+    Serial.print("The Swimming Pool is full In this Time ");
     Serial.println();
   }
+  
+  //  freeslots = maxslots - count;
+  //  if (freeslots = maxslots) {
+  //    Serial.print("The Swimming Pool is Free In this Time ");
+  //    Serial.println();
+  //  }
+  //  else if (freeslots > 0) {
+  //    Serial.print(freeslots);
+  //    Serial.print(" Students can Enterd the Swimming Pool this Time ");
+  //    Serial.println();
+  //  }
+
 
 
 
