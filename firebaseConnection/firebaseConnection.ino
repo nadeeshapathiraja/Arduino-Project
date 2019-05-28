@@ -1,15 +1,18 @@
 #include <ESP8266WiFi.h>
 #include <FirebaseArduino.h>
-
 //#include <SoftwareSerial.h>
 //#include <ArduinoJson.h>
 //#include <ESP8266HTTPClient.h>
+#include <ESP8266HTTPClient.h>
+#include <SoftwareSerial.h>
 
 //Set these to run example
-#define FIREBASE_HOST "https://stucount-12793.firebaseio.com/"
-#define FIREBASE_AUTH "s15vUwxpXpcwUVjzqpjlgszjuHXlsTwVQMsczQd7"
-#define WIFI_SSID "swimmingclub"
-#define WIFI_PASSWORD "kccswimming"
+#define FIREBASE_HOST "https://groupproject-15de4.firebaseio.com"
+#define FIREBASE_AUTH "6mUhtevPAsjIpfev2NS6ObC2ss2nfMsusMGlwghn"
+
+//
+#define WIFI_SSID "Nadeesha"
+#define WIFI_PASSWORD "pdnc12345"
 
 
 
@@ -20,7 +23,7 @@ void setup() {
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("connecting");
-  while (WiFi.status() != WL_CONNECTED) {
+  while(WiFi.status() != WL_CONNECTED){
     Serial.print(".");
     delay(500);
   }
@@ -44,6 +47,9 @@ void loop() {
     Serial.print("setting number failed:");
     Serial.println(Firebase.error());
     firebasereconnect();
+    delay(1000);
     return;
   }
+  
+  Firebase.setString("location","Nadeesha");
 }
