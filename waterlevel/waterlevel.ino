@@ -2,9 +2,11 @@
 #define echo 4
 
 void setup() {
+  Serial.begin(9600);
   pinMode(trig,OUTPUT);
   pinMode(echo,INPUT);
   pinMode(8,OUTPUT);
+  delay(5000);
 
 }
 
@@ -17,31 +19,31 @@ void motoroff (){
 }
 
 void loop() {
-  int height=150;
+  int height=50;
   int offlevel=20;
 
   digitalWrite(trig,LOW);
-  delayMicroseconds(2);
+  delayMicroseconds(5);
   digitalWrite(trig,HIGH);
-  delayMicroseconds(10);
+  delayMicroseconds(20);
 
   long t = pulseIn(echo,HIGH);
   long cm = t/29/2;
 
-  int onlevel=height*3/4+offlevel;
+  int onlevel=40+offlevel;
+
+  
+  
   
   if(cm>onlevel){
-    motoron();  
+    motoron(); 
+    Serial.print("The Moter is ON "); 
   }
   else{
     if(cm<offlevel){
         motoroff();
+        Serial.print("The Moter is OFF ");
     }
   }
-  delay(100);
+  delay(1000);
 }
-
-
-
-
-

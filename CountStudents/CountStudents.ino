@@ -17,6 +17,8 @@ int count = 0;
 
 void setup() {
   //for detect person
+
+  Serial.begin(9600);
   pinMode(trigpin1, OUTPUT);
   pinMode(echopin1, INPUT);
   pinMode(trigpin2, OUTPUT);
