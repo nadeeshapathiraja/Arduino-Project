@@ -11,18 +11,20 @@
 #define WIFI_SSID "Nadeesha"
 #define WIFI_PASSWORD "1231231234567"
 
+//SoftwareSerial NodeMCU(D2,D3);
+
 void setup() {
 
   Serial.begin(9600);
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  Serial.print("connecting");
+  Serial.print("Connecting..");
   while(WiFi.status() != WL_CONNECTED){
     Serial.print(".");
     delay(500);
   }
   Serial.println();
-  Serial.print("connected:");
+  Serial.print("WiFi Connected!!!");
   Serial.println(WiFi.localIP());
 
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
@@ -39,7 +41,10 @@ void loop() {
     return;
   }
   
- Firebase.setFloat("person/xsshdhsa/name",12.006);
+ //Firebase.setFloat("person/xsshdhsa/name",12.006);
+ Firebase.setFloat("studentCount/maxCount",10);
+ Firebase.setFloat("studentCount/freeSlots",8);
+ Firebase.setFloat("studentCount/count",2);
   delay(10000);
   Serial.println("Hellow");
 }
