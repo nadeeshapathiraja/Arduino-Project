@@ -4,18 +4,23 @@
 #include <ESP8266HTTPClient.h>
 #include <SoftwareSerial.h>
 
+
+SoftwareSerial s(D3,D2);
+int data;
+
 //Set these to run example
 #define FIREBASE_AUTH "ZiRafXEE0iqF4ZH4gF2psmr2x2VgVQ9SvKjrMP6f"
 #define FIREBASE_HOST "poolmanagement-9ab24.firebaseio.com"
 
 #define WIFI_SSID "Nadeesha"
-#define WIFI_PASSWORD "1231231234567"
+#define WIFI_PASSWORD "12345678"
 
-//SoftwareSerial NodeMCU(D2,D3);
+
 
 void setup() {
 
   Serial.begin(9600);
+  s.begin(9600);
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting..");
@@ -40,11 +45,18 @@ void loop() {
     delay(2000);
     return;
   }
+
+  s.write("s");
+
+  if(s.available()>0){
+    data=s.read();
+    Serial.println(data);
+    
+  }
+
+ Firebase.setFloat("studentCount/maxCount",5);
+ Firebase.setFloat("studentCount/freeSlots",2);
+ Firebase.setFloat("studentCount/count",4);
+  //delay(1000);
   
- //Firebase.setFloat("person/xsshdhsa/name",12.006);
- Firebase.setFloat("studentCount/maxCount",10);
- Firebase.setFloat("studentCount/freeSlots",8);
- Firebase.setFloat("studentCount/count",2);
-  delay(10000);
-  Serial.println("Hellow");
 }

@@ -13,7 +13,7 @@ SoftwareSerial NodeMCU(D2,D3);
 
 void setup() {
   Serial.begin(9600);
-  NodeMCU.begin(115200);
+  NodeMCU.begin(9600);
   pinMode(D2,INPUT);
   pinMode(D3,OUTPUT);
   
