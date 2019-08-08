@@ -1,20 +1,31 @@
+/*
+ * bismillah hir rahman nir raheem
+ * UNO/Nano = Pin 7 & Pin 8
+ * Note: Uno and ESP8266 cross connection
+ */
+
 #include <SoftwareSerial.h>
-SoftwareSerial s(D3,D2);
-int data;
 
-void setup() {
-  s.begin(9600);
-  Serial.begin(9600);
+SoftwareSerial ArduinoUno(7,8);
+
+String f;
+
+void setup(){
+
+        Serial.begin(9600);
+
+    ArduinoUno.begin(115200);
+
 }
+void loop(){
 
-void loop() {
+  float i = (random(100) + 1);
 
-  s.write("s");
+  float j = (random(100) + 1);
 
-  if(s.available()>0){
-    data=s.read();
-    Serial.println(data);
-    delay(500);
-  }
+ f = String('H')+String(i)+String('T')+String(j); 
 
+  ArduinoUno.println(f);
+
+delay(2000);
 }
