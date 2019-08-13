@@ -1,20 +1,19 @@
 #include <ESP8266WiFi.h>
-//#include "FirebaseESP8266.h"
 #include <FirebaseArduino.h>
 #include <ESP8266HTTPClient.h>
 #include <SoftwareSerial.h>
 
 //Set these to run example
-#define FIREBASE_AUTH "ZiRafXEE0iqF4ZH4gF2psmr2x2VgVQ9SvKjrMP6f"
-#define FIREBASE_HOST "poolmanagement-9ab24.firebaseio.com"
+#define FIREBASE_HOST "poolmanager-69be5.firebaseio.com"
+#define FIREBASE_AUTH "aOjMQB8rgonrUAvynErDU5Nts2gqUIi4aZhCQQhp"
 #define WIFI_SSID "Nadeesha"
-#define WIFI_PASSWORD "12345678"
+#define WIFI_PASSWORD "123456123"
 
 
 
 void setup() {
 
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting..");

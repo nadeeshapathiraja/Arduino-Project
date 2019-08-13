@@ -151,21 +151,4 @@ void loop() {
     Serial.println();
   }
   
-  //  freeslots = maxslots - count;
-  //  if (freeslots = maxslots) {
-  //    Serial.print("The Swimming Pool is Free In this Time ");
-  //    Serial.println();
-  //  }
-  //  else if (freeslots > 0) {
-  //    Serial.print(freeslots);
-  //    Serial.print(" Students can Enterd the Swimming Pool this Time ");
-  //    Serial.println();
-  //  }
-
-
-
-
-
-
-
 }

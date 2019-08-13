@@ -4,8 +4,6 @@
 #include <ESP8266HTTPClient.h>
 #include <SoftwareSerial.h>
 
-
-SoftwareSerial s(D3,D2);
 int data;
 
 //Set these to run example
@@ -13,14 +11,14 @@ int data;
 #define FIREBASE_HOST "poolmanagement-9ab24.firebaseio.com"
 
 #define WIFI_SSID "Nadeesha"
-#define WIFI_PASSWORD "12345678"
+#define WIFI_PASSWORD "123123123"
 
 
 
 void setup() {
 
   Serial.begin(9600);
-  s.begin(9600);
+ 
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting..");
@@ -46,13 +44,6 @@ void loop() {
     return;
   }
 
-  s.write("s");
-
-  if(s.available()>0){
-    data=s.read();
-    Serial.println(data);
-    
-  }
 
  Firebase.setFloat("studentCount/maxCount",5);
  Firebase.setFloat("studentCount/freeSlots",2);

@@ -8,21 +8,23 @@
 #define FIREBASE_AUTH "ZiRafXEE0iqF4ZH4gF2psmr2x2VgVQ9SvKjrMP6f"
 #define FIREBASE_HOST "poolmanagement-9ab24.firebaseio.com"
 #define WIFI_SSID "Nadeesha"
-#define WIFI_PASSWORD "12345678"
+#define WIFI_PASSWORD "123456123"
 
+//set frontend pins
 int trigpin1 = D0;
 int echopin1 = D1;
+
+//set backend pins 
 int trigpin2 = D2;
 int echopin2 = D3;
+
 long duration1, cm1 , duration2, cm2;
 int freeslots, maxslots = 3;
 
 Servo servo1, servo2;
 
+//default student count=0
 int count = 0;
-
-//bool servo1.write(90) = true;
-//bool servo2.write(90) = true;
 
 
 void setup() {
@@ -35,16 +37,15 @@ void setup() {
   pinMode(echopin2, INPUT);
 
   //for servor moter enterence
-
+//enterence gate
   servo1.attach(D4);
   servo1.write(0);
 
 
-
+//exit gate
   servo2.attach(D5);
   servo2.write(0);
 
-  Serial.begin (9600);
 
   digitalWrite(trigpin1, LOW);
   delayMicroseconds(5);
@@ -54,7 +55,7 @@ void setup() {
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting..");
-  while(WiFi.status() != WL_CONNECTED){
+  while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -68,6 +69,15 @@ void setup() {
 }
 
 void loop() {
+
+  if (Firebase.failed())
+  {
+    Serial.print("setting number failed:");
+    Serial.println(Firebase.error());
+    Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+    delay(2000);
+    return;
+  }
 
   delay(500);
 
@@ -92,8 +102,6 @@ void loop() {
 
     if (cm1 <= 50) {
       Serial.println("Sensor Detect the person in Front");
-
-
       delay(50);          // wait for sensors to stabilize
       servo1.write(90);
       delay(3000);//servo moter aka pallehata ena aka ta kalaya(Uda redila tina)
@@ -163,26 +171,15 @@ void loop() {
       servo2.write(0);
       delay(2000);
 
-
     }
-
 
   }
   if (count >= maxslots) {
     Serial.print("The Swimming Pool is full In this Time ");
     Serial.println();
   }
-  
-//    freeslots = maxslots - count;
-//    if (freeslots = maxslots) {
-//      Serial.print("The Swimming Pool is Free In this Time ");
-//      Serial.println();
-//    }
-//    else if (freeslots > 0) {
-//      Serial.print(freeslots);
-//      Serial.print(" Students can Enterd the Swimming Pool this Time ");
-//      Serial.println();
-//    }
 
-
+  Firebase.setFloat("studentCount/maxCount", maxslots);
+  Firebase.setFloat("studentCount/freeSlots", freeslots);
+  Firebase.setFloat("studentCount/count", count);
 }
