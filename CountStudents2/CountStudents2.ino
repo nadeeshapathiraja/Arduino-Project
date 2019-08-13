@@ -10,13 +10,17 @@
 #define WIFI_SSID "Nadeesha"
 #define WIFI_PASSWORD "123456123"
 
-//set frontend pins
+//set frontend pins for stcount
 int trigpin1 = D0;
 int echopin1 = D1;
 
-//set backend pins 
+//set backend pins for stcount
 int trigpin2 = D2;
 int echopin2 = D3;
+
+//water level
+#define trig D6
+#define echo D7
 
 long duration1, cm1 , duration2, cm2;
 int freeslots, maxslots = 3;
@@ -36,13 +40,18 @@ void setup() {
   pinMode(trigpin2, OUTPUT);
   pinMode(echopin2, INPUT);
 
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+  pinMode(D8, OUTPUT);
+  delay(5000);
+
   //for servor moter enterence
-//enterence gate
+  //enterence gate
   servo1.attach(D4);
   servo1.write(0);
 
 
-//exit gate
+  //exit gate
   servo2.attach(D5);
   servo2.write(0);
 
@@ -66,6 +75,14 @@ void setup() {
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
 
 
+}
+
+void motoron() {
+  digitalWrite(D8, LOW);
+}
+
+void motoroff () {
+  digitalWrite(D8, HIGH);
 }
 
 void loop() {
@@ -182,4 +199,36 @@ void loop() {
   Firebase.setFloat("studentCount/maxCount", maxslots);
   Firebase.setFloat("studentCount/freeSlots", freeslots);
   Firebase.setFloat("studentCount/count", count);
+
+  //Water Level Controlling
+  //max hight
+  int height = 50;
+  //off level is senser and water level diffrence in tank full
+  int offlevel = 20;
+
+  digitalWrite(trig, LOW);
+  delayMicroseconds(5);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(20);
+
+  long t = pulseIn(echo, HIGH);
+  long cm = t / 29 / 2;
+
+  int onlevel = 40 + offlevel;
+
+
+
+
+  if (cm > onlevel) {
+    motoron();
+    Serial.print("The Moter is ON ");
+  }
+  else {
+    if (cm < offlevel) {
+      motoroff();
+      Serial.print("The Moter is OFF ");
+    }
+  }
+  Firebase.setFloat("waterLevel/level", cm);
+
 }
