@@ -1,6 +1,5 @@
 #include <Servo.h>
 #include <ESP8266WiFi.h>
-//#include "FirebaseESP8266.h"
 #include <FirebaseArduino.h>
 #include <ESP8266HTTPClient.h>
 #include <SoftwareSerial.h>
@@ -52,6 +51,18 @@ void setup() {
 
   digitalWrite(trigpin2, LOW);
   delayMicroseconds(5);
+
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("Connecting..");
+  while(WiFi.status() != WL_CONNECTED){
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println();
+  Serial.print("WiFi Connected!!!");
+  Serial.println(WiFi.localIP());
+
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
 
 
 }
