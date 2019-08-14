@@ -5,8 +5,8 @@
 #include <SoftwareSerial.h>
 
 //Set these to run example
-#define FIREBASE_AUTH "ZiRafXEE0iqF4ZH4gF2psmr2x2VgVQ9SvKjrMP6f"
-#define FIREBASE_HOST "poolmanagement-9ab24.firebaseio.com"
+#define FIREBASE_AUTH "4iCMXd8iz4UaUDbd0HLT2APwtN80oOtC3baiU2L3"
+#define FIREBASE_HOST "poolmanager-3956f.firebaseio.com"
 #define WIFI_SSID "Nadeesha"
 #define WIFI_PASSWORD "123456123"
 
